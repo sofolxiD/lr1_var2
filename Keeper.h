@@ -30,4 +30,4 @@ public:
     void clear();
 };
 
-#endif // KEEPER_H
+#endif

@@ -24,7 +24,7 @@ void print_menu(int selected)
     const int menuSize = 8;
 
     system("cls");
-    cout << "=== Гараж ===\n\n";
+    cout << "---- Гараж ----\n";
     for (int i = 0; i < menuSize; i++) {
         if (i == selected)
             cout << "-> " << menu[i] << endl;
@@ -33,8 +33,7 @@ void print_menu(int selected)
     }
 }
 
-int main()
-{
+int main() {
     SetConsoleOutputCP(1251); // русский
     SetConsoleCP(1251);
 
@@ -56,8 +55,7 @@ int main()
                 switch (menu_index) {
                 case 0: { // добавить автомобиль
                     Car* c = new Car();
-                    cout << "Добавление автомобиля:\n";
-                    cin.ignore(); // очищаем '\n' после предыдущего ввода
+                    cout << "--- Добавление автомобиля ---\n";
                     c->inputFromConsole();
                     keeper.add(c);
                     cout << "Автомобиль добавлен.\n";
