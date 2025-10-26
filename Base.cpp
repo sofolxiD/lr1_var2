@@ -1,16 +1,16 @@
 #include "Base.h"
 
 Base::Base() {
-    std::cout << "[Base] default constructor called\n";
+    std::cout << "Вызывается конструктор по умолчанию [Base]\n";
 }
 
 Base::Base(const Base& other) {
     (void)other;
-    std::cout << "[Base] copy constructor called\n";
+    std::cout << "Вызывается конструктор копирования [Base]\n";
 }
 
 Base::~Base() {
-    std::cout << "[Base] destructor called\n";
+    std::cout << "Вызывается деструктор [Base]\n";
 }
 
 void Base::inputFromConsole() {
@@ -51,9 +51,9 @@ Base* Base::createFromSerialized(const std::string& line) {
             b->deserializeFromStream(ss);
             return b;
         } else {
-            throw GarageException("Unknown type in serialized line");
+            throw GarageException("Error");
         }
     } catch (std::bad_alloc&) {
-        throw GarageException("Memory allocation failed while creating object");
+        throw GarageException("Ошибка выделения памяти");
     }
 }

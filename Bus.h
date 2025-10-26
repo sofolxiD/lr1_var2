@@ -25,4 +25,4 @@ public:
     void deserializeFromStream(std::stringstream& ss);
 };
 
-#endif // BUS_H
+#endif

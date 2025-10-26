@@ -15,7 +15,7 @@ Keeper::Keeper(const Keeper& other) : items(nullptr), count(other.count), capaci
         items[i] = other.items[i] ? other.items[i]->clone() : nullptr;
     }
     for (int i = count; i < capacity; ++i) items[i] = nullptr;
-    std::cout << "[Keeper] copy constructor called\n";
+    std::cout << "Вызван конструктор копирования (Keeper)\n";
 }
 
 Keeper& Keeper::operator=(const Keeper& other) {
@@ -30,14 +30,14 @@ Keeper& Keeper::operator=(const Keeper& other) {
         }
         for (int i = count; i < capacity; ++i) items[i] = nullptr;
     }
-    std::cout << "[Keeper] assignment operator called\n";
+    std::cout << "Вызван оператор присваивания (Keeper)\n";
     return *this;
 }
 
 Keeper::~Keeper() {
     clear();
     delete [] items;
-    std::cout << "[Keeper] destructor called\n";
+    std::cout << "Вызван деструктор (Keeper)\n";
 }
 
 void Keeper::resizeUp() {
@@ -64,7 +64,7 @@ void Keeper::removeAt(int index) {
     for (int i = index; i < count - 1; ++i) items[i] = items[i+1];
     items[count-1] = nullptr;
     --count;
-    std::cout << "[Keeper] object removed at index " << index << ". New size: " << count << "\n";
+    std::cout << "Объект (Keeper) удален по индексу " << index << ". New size: " << count << "\n";
 }
 
 void Keeper::showAll() const {

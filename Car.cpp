@@ -1,22 +1,24 @@
 #include "Car.h"
 #include <iostream>
 #include <sstream>
+#include <conio.h>
+#include <windows.h>
 
 Car::Car() : brand(""), model(""), engineVolume(0.0), color(""), transmission("") {
-    std::cout << "Ð’Ñ‹Ð·Ð¾Ð² ÐºÐ¾Ð½ÑÑ‚Ñ€ÑƒÐºÑ‚Ð¾Ñ€Ð° Ð¿Ð¾ ÑƒÐ¼Ð¾Ð»Ñ‡Ð°Ð½Ð¸ÑŽ [Car]\n";
+    std::cout << "Âûçâàí êîíñòðóêòîð ïî óìîë÷àíèþ [Car]\n";
 }
 
 Car::Car(const std::string& brand_, const std::string& model_, double engineVolume_,
-         const std::string& color_, const std::string& transmission_)
+    const std::string& color_, const std::string& transmission_)
     : brand(brand_), model(model_), engineVolume(engineVolume_),
-      color(color_), transmission(transmission_) {
-    std::cout << "Ð’Ñ‹Ð·Ð¾Ð² Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ð¸Ð·Ð¾Ð²Ð°Ð½Ð½Ð¾Ð³Ð¾ ÐºÐ¾Ð½ÑÑ‚Ñ€ÑƒÐºÑ‚Ð¾Ñ€Ð° [Car] " << brand << " " << model << "\n";
+    color(color_), transmission(transmission_) {
+    std::cout << "Âûçâàí ïàðàìåòðèçîâàííûé êîíñòðóêòîð [Car] " << brand << " " << model << "\n";
 }
 
 Car::Car(const Car& other)
     : Base(other), brand(other.brand), model(other.model),
-      engineVolume(other.engineVolume), color(other.color), transmission(other.transmission) {
-    std::cout << "Ð’Ñ‹Ð·Ð¾Ð² ÐºÐ¾Ð½ÑÑ‚Ñ€ÑƒÐºÑ‚Ð¾Ñ€Ð° ÐºÐ¾Ð¿Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ñ [Car]\n";
+    engineVolume(other.engineVolume), color(other.color), transmission(other.transmission) {
+    std::cout << "Âûçâàí êîíñòðóêòîð êîïèðîâàíèÿ [Car]\n";
 }
 
 Car& Car::operator=(const Car& other) {
@@ -27,12 +29,12 @@ Car& Car::operator=(const Car& other) {
         color = other.color;
         transmission = other.transmission;
     }
-    std::cout << "Ð’Ñ‹Ð·Ð²Ð°Ð½ Ð¾Ð¿ÐµÑ€Ð°Ñ‚Ð¾Ñ€ Ð¿Ñ€Ð¸ÑÐ²Ð°Ð¸Ð²Ð°Ð½Ð¸Ñ [Car]\n";
+    std::cout << "Âûçâàí îïåðàòîð ïðèñâàèâàíèÿ [Car]\n";
     return *this;
 }
 
 Car::~Car() {
-    std::cout << "Ð’Ñ‹Ð·Ð²Ð°Ð½ Ð´ÐµÑÑ‚Ñ€ÑƒÐºÑ‚Ð¾Ñ€ [Car] " << brand << " " << model << "\n";
+    std::cout << "Âûçâàí äåñòðóêòîð [Car] " << brand << " " << model << "\n";
 }
 
 Base* Car::clone() const {
@@ -40,34 +42,73 @@ Base* Car::clone() const {
 }
 
 void Car::inputFromConsole() {
-    std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¼Ð°Ñ€ÐºÑƒ: "; std::getline(std::cin, brand);
-    std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¼Ð¾Ð´ÐµÐ»ÑŒ: "; std::getline(std::cin, model);
-    std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¾Ð±ÑŠÐµÐ¼ Ð´Ð²Ð¸Ð³Ð°Ñ‚ÐµÐ»Ñ: "; std::string tmp; std::getline(std::cin, tmp); engineVolume = atof(tmp.c_str());
-    std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ñ†Ð²ÐµÑ‚: "; std::getline(std::cin, color);
-    std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ñ‚Ð¸Ð¿ ÐšÐŸÐŸ: "; std::getline(std::cin, transmission);
+    std::cout << "Ââåäèòå ìàðêó: ";
+    std::getline(std::cin, brand);
+
+    std::cout << "Ââåäèòå ìîäåëü: ";
+    std::getline(std::cin, model);
+
+    std::cout << "Ââåäèòå îáúåì äâèãàòåëÿ: ";
+    std::string tmp;
+    std::getline(std::cin, tmp);
+    engineVolume = atof(tmp.c_str());
+
+    std::cout << "Ââåäèòå öâåò: ";
+    std::getline(std::cin, color);
+
+    const char* KPP[] = {
+        "Manual",
+        "Automatic",
+        "AMT",
+        "CVT"
+    };
+
+    int KPP_index = 0;
+    char key;
+
+    while (true) {
+        system("cls");
+        std::cout << "Âûáåðèòå òèï ÊÏÏ:\n";
+        for (int i = 0; i < 4; i++) {
+            if (i == KPP_index)
+                std::cout << "-> " << KPP[i] << "\n";
+            else
+                std::cout << "   " << KPP[i] << "\n";
+        }
+
+        key = _getch();
+        if (key == 72)
+            KPP_index = (KPP_index == 0) ? 3 : KPP_index - 1;
+        else if (key == 80)
+            KPP_index = (KPP_index == 3) ? 0 : KPP_index + 1;
+        else if (key == 13) break;
+    }
+
+    transmission = KPP[KPP_index];
+    system("cls");
+    std::cout << "Âûáðàí òèï ÊÏÏ: " << transmission << "\n";
 }
 
 void Car::print(std::ostream& os) const {
-    os << "[Car] MÐ°Ñ€ÐºÐ°: " << brand << ", ÐœÐ¾Ð´ÐµÐ»ÑŒ: " << model << ", ÐžÐ±ÑŠÐµÐ¼ Ð´Ð²Ð¸Ð³Ð°Ñ‚ÐµÐ»Ñ: " << engineVolume << "L" << ", Ð¦Ð²ÐµÑ‚: " << color << ", ÐšÐŸÐŸ: " << transmission << "\n";
+    os << "(Car) Ìàðêà: " << brand
+        << ", Ìîäåëü: " << model
+        << ", Îáúåì äâèãàòåëÿ: " << engineVolume
+        << ", Öâåò: " << color
+        << ", ÊÏÏ: " << transmission << "\n";
 }
 
 std::string Car::serialize() const {
     std::stringstream ss;
-    ss << "C|" << brand << "|" << model << "|" << engineVolume << "|" << color << "|" << transmission;
+    ss << "Car, " << brand << ", " << model << ", " << engineVolume << ", " << color << ", " << transmission;
     return ss.str();
 }
 
 void Car::deserializeFromStream(std::stringstream& ss) {
     std::string token;
-    // brand
-    if (!std::getline(ss, brand, '|')) brand = "";
-    // model
-    if (!std::getline(ss, model, '|')) model = "";
-    // engineVolume
-    if (!std::getline(ss, token, '|')) token = "0";
+    if (!std::getline(ss, brand, ',')) brand = "";
+    if (!std::getline(ss, model, ',')) model = "";
+    if (!std::getline(ss, token, ',')) token = "0";
     engineVolume = atof(token.c_str());
-    // color
-    if (!std::getline(ss, color, '|')) color = "";
-    // transmission - remainder (no more '|')
+    if (!std::getline(ss, color, ',')) color = "";
     if (!std::getline(ss, transmission)) transmission = "";
 }
