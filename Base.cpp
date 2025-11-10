@@ -9,15 +9,14 @@ Base::Base() {
 
 Base::Base(const Base& other) {
     (void)other;
-    std::cout << "Вызван конструктор копирования [Base]\n";
+    std::cout << "Вызван конструктор копирования (Base)\n";
 }
 
 Base::~Base() {
-    std::cout << "Вызван деструктор [Base]\n";
+    std::cout << "Вызван деструктор (Base)\n";
 }
 
 void Base::inputFromConsole() {
-    // default: nothing. Derived classes override.
 }
 
 Base* Base::createFromSerialized(const std::string& line) {
@@ -50,6 +49,6 @@ Base* Base::createFromSerialized(const std::string& line) {
             throw GarageException("Error");
         }
     } catch (std::bad_alloc&) {
-        throw GarageException("Ошибка выделения памяти");
+        throw GarageException("ошибка выделения памяти");
     }
 }

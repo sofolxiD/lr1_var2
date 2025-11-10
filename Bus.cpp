@@ -36,7 +36,6 @@ Bus& Bus::operator=(const Bus& other) {
 Bus::~Bus() {
     std::cout << "Вызван деструктор [Bus] " << brand << " " << model << "\n";
 }
-
 Base* Bus::clone() const {
     return new Bus(*this);
 }
@@ -66,7 +65,7 @@ void Bus::print(std::ostream& os) const {
        << ", Модель: " << model
        << ", Сидячих мест: " << seated
        << ", Всего мест: " << totalSeats
-       << ", Конечный пункт: " << destination << "\n";
+       << ", Конечный пункт: " << destination << "\n\n";
 }
 
 std::string Bus::serialize() const {

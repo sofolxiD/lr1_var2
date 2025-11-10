@@ -35,7 +35,6 @@ Car& Car::operator=(const Car& other) {
 Car::~Car() {
     std::cout << "Вызван деструктор [Car] " << brand << " " << model << "\n";
 }
-
 Base* Car::clone() const {
     return new Car(*this);
 }
@@ -60,7 +59,7 @@ void Car::inputFromConsole() {
         "Automatic",
         "AMT",
         "CVT"
-    };
+    };  //(Механика, Автомат, Робот, Вариатор)
 
     int KPP_index = 0;
     char key;
@@ -86,7 +85,13 @@ void Car::inputFromConsole() {
 
     transmission = KPP[KPP_index];
     system("cls");
-    std::cout << "Выбран тип КПП: " << transmission << "\n";
+
+    std::cout << "--- Добавление автомобиля ---\n";
+    std::cout << "Введите марку: " << brand << "\n";
+    std::cout << "Введите модель: " << model << "\n";
+    std::cout << "Введите объем двигателя: " << engineVolume << "\n";
+    std::cout << "Введите цвет: " << color << "\n";
+    std::cout << "Выбран тип КПП: " << transmission << "\n\n";
 }
 
 void Car::print(std::ostream& os) const {
@@ -99,7 +104,7 @@ void Car::print(std::ostream& os) const {
 
 std::string Car::serialize() const {
     std::stringstream ss;
-    ss << "Car, " << brand << ", " << model << ", " << engineVolume << ", " << color << ", " << transmission;
+    ss << "Car," << brand << "," << model << "," << engineVolume << "," << color << "," << transmission;
     return ss.str();
 }
 
